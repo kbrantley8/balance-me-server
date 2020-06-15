@@ -103,6 +103,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(userRoutes)
 
 const credentials = require('./credentials/mongo-credentials.json');
@@ -111,7 +112,8 @@ var connectionString = 'mongodb+srv://'+ credentials.username + ':' + credential
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
 })
 
 mongoose.connection.on('connected', () => {
