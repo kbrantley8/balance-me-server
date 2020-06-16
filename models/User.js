@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     },
     points: {
         type: Number,
-        required: false,
+        required: true,
         default: 0
     },
     account_type: {
@@ -37,5 +37,16 @@ const userSchema = new mongoose.Schema({
         required: true
     }
 }, {collection: 'users'})
+
+userSchema.methods.comparePassword = function(enteredPassword) {
+    const user = this
+    return new Promise((resolve, reject) => {
+        if (enteredPassword != user.password) {
+            return reject("Passwords do not match")
+        } else {
+            resolve(true)
+        }
+    })  
+}
 
 mongoose.model('User', userSchema)
