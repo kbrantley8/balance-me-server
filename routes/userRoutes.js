@@ -1,13 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
+const Task = mongoose.model('Task')
 
 const router = express.Router()
 
 router.get('/users', async (req, res) => {
-    var user = await User.find()
+    var users = await User.find()
 
-    res.status(200).send(user)
+    res.status(200).send(users)
 });
 
 router.post('/createUser', async (req, res) => {
@@ -44,7 +45,7 @@ router.get('/getUser', async (req, res) => {
             password: user.password,
             email: user.email,
             points: user.points,
-            userId: user._id
+            user_id: user._id
         })
 
     } catch (e) {
@@ -74,11 +75,56 @@ router.post('/updateEmail', async (req, res) => {
                 doc.markModified('email')
                 await doc.save()
 
-                res.send(doc)
+                res.status(200).send({   
+                    first_name: doc.first_name,
+                    last_name: doc.last_name,
+                    account_type: doc.account_type,
+                    password: doc.password,
+                    email: doc.email,
+                    points: doc.points,
+                    user_id: doc._id})
             } catch (err) {
                 return res.status(422).send({error: err})
             }
         });
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
+router.get('/getAllAssignedTasks', async (req, res) => {
+    const {email} = req.body;
+
+    try {
+        var user = await User.findOne({ 'email': email });
+
+        if (!user) {
+            return res.status(404).send({error: "Could not find the specified user. Please try again."})
+        }
+
+        var tasks = await Task.find({ 'assigned_user_id': user._id })
+
+        res.status(200).send(tasks)
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
+router.get('/getAllCreatedTasks', async (req, res) => {
+    const {email} = req.body;
+
+    try {
+        var user = await User.findOne({ 'email': email });
+
+        if (!user) {
+            return res.status(404).send({error: "Could not find the specified user. Please try again."})
+        }
+
+        var tasks = await Task.find({ 'created_user_id': user._id })
+
+        res.status(200).send(tasks)
 
     } catch (e) {
         return res.send({error: e.message})
