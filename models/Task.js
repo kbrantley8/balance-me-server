@@ -1,5 +1,22 @@
 const mongoose = require('mongoose')
 
+const historySchema = new mongoose.Schema({
+    estimated_completion_time: {
+        type: Number,
+        required: true
+    },
+    completion_time: {
+        type: Number,
+        required: false,
+        default: null
+    },
+    status: {
+        type: Number,
+        required: true,
+        default: 1
+    }
+})
+
 const taskSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -34,11 +51,6 @@ const taskSchema = new mongoose.Schema({
         required: true,
         default: 3
     },
-    completion_time: {
-        type: Number,
-        requried: true,
-        default: null
-    },
     image_path: {
         type: String,
         required: true,
@@ -51,6 +63,21 @@ const taskSchema = new mongoose.Schema({
     created_user_id: {
         type: String,
         required: true
+    },
+    history: {
+        type: Map,
+        of: historySchema,
+        requred: true,
+        default: {}
+    },
+    repeat: {
+        type: Map,
+        of: String,
+        required: true,
+        default: {
+            days: "",
+            weeks: ""
+        }
     }
 }, {collection: 'tasks'})
 

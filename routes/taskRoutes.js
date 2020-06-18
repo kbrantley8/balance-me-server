@@ -28,11 +28,12 @@ router.post('/createTask', async (req, res) => {
             start_time: task.start_time,
             estimated_completion_time: task.estimated_completion_time,
             status: task.status,
-            completion_time: task.completion_time,
             image_path: task.image_path,
             assigned_user_id: task.assigned_user_id, 
             created_user_id: task.created_user_id,
-            task_id: task._id
+            task_id: task._id,
+            history: task.history,
+            repeat: task.repeat
         })
 
     } catch (e) {
@@ -60,11 +61,12 @@ router.get('/getTask', async (req, res) => {
             start_time: task.start_time,
             estimated_completion_time: task.estimated_completion_time,
             status: task.status,
-            completion_time: task.completion_time,
             image_path: task.image_path,
             assigned_user_id: task.assigned_user_id, 
             created_user_id: task.created_user_id,
-            task_id: task._id
+            task_id: task._id,
+            history: task.history,
+            repeat: task.repeat
         })
 
     } catch (e) {
@@ -92,11 +94,12 @@ router.post('/updateTask', async (req, res) => {
             start_time: task.start_time,
             estimated_completion_time: task.estimated_completion_time,
             status: task.status,
-            completion_time: task.completion_time,
             image_path: task.image_path,
             assigned_user_id: task.assigned_user_id, 
             created_user_id: task.created_user_id,
-            task_id: task._id
+            task_id: task._id,
+            history: task.history,
+            repeat: task.repeat
         })
     } catch (e) {
         res.send({error: e.message})
@@ -129,11 +132,12 @@ router.post('/assignTask', async (req, res) => {
             start_time: task.start_time,
             estimated_completion_time: task.estimated_completion_time,
             status: task.status,
-            completion_time: task.completion_time,
             image_path: task.image_path,
             assigned_user_id: task.assigned_user_id, 
             created_user_id: task.created_user_id,
-            task_id: task._id
+            task_id: task._id,
+            history: task.history,
+            repeat: task.repeat
         })
     } catch (e) {
         res.send({error: e.message})
