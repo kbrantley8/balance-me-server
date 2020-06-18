@@ -1,21 +1,10 @@
 const mongoose = require('mongoose')
 
-const historySchema = new mongoose.Schema({
-    estimated_completion_time: {
-        type: Number,
-        required: true
-    },
-    completion_time: {
-        type: Number,
-        required: false,
-        default: null
-    },
-    status: {
-        type: Number,
-        required: true,
-        default: 1
-    }
-})
+const history_schema = {
+    completion_time: "",
+    estimated_completion_time: "",
+    status: ""
+}
 
 const taskSchema = new mongoose.Schema({
     name: {
@@ -65,18 +54,18 @@ const taskSchema = new mongoose.Schema({
         required: true
     },
     history: {
-        type: Map,
-        of: historySchema,
+        type: Array,
+        of: history_schema,
         requred: true,
-        default: {}
+        default: []
     },
     repeat: {
         type: Map,
         of: String,
         required: true,
         default: {
-            days: "",
-            weeks: ""
+            days: "none",
+            weeks: "none"
         }
     }
 }, {collection: 'tasks'})

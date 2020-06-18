@@ -131,4 +131,23 @@ router.get('/getAllCreatedTasks', async (req, res) => {
     }
 })
 
+router.delete('/deleteUser', async (req, res) => {
+
+    const { email } = req.body;
+
+    try {
+        var user = await User.deleteOne({ 'email': email }, async function (err, doc) { 
+            if (!doc.deletedCount) {
+                return res.status(404).send({error: "Could not find the specified user. Please try again."})
+            } else {
+                return res.status(200).send(true)
+            }
+
+        })
+
+    } catch (e) {
+        res.send({error: e.message})
+    }
+})
+
 module.exports = router;
