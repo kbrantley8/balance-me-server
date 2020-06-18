@@ -42,7 +42,7 @@ router.post('/createTask', async (req, res) => {
 
 router.get('/getTask', async (req, res) => {
 
-    const { task_id } = req.body;
+    const { task_id } = req.query;
 
     try {
         var task = await Task.findOne({ '_id': task_id });
@@ -142,7 +142,7 @@ router.post('/assignTask', async (req, res) => {
 
 router.get('/getAssignedUser', async (req, res) => {
 
-    const { task_id } = req.body;
+    const { task_id } = req.query;
 
     try {
         var task = await Task.findOne({ '_id': task_id }, async function (err, doc) {
@@ -174,7 +174,7 @@ router.get('/getAssignedUser', async (req, res) => {
 
 router.get('/getCreatedUser', async (req, res) => {
 
-    const { task_id } = req.body;
+    const { task_id } = req.query;
 
     try {
         var task = await Task.findOne({ '_id': task_id }, async function (err, doc) {

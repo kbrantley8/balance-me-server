@@ -28,7 +28,7 @@ router.post('/createUser', async (req, res) => {
 
 router.get('/getUser', async (req, res) => {
     // const {userId} = req.body;
-    const {email} = req.body;
+    const {email} = req.query;
 
     try {
         // const user = new User.findOne({ '_id': userId })
@@ -94,7 +94,7 @@ router.post('/updateEmail', async (req, res) => {
 })
 
 router.get('/getAllAssignedTasks', async (req, res) => {
-    const {email} = req.body;
+    const {email} = req.query;
 
     try {
         var user = await User.findOne({ 'email': email });
@@ -113,7 +113,7 @@ router.get('/getAllAssignedTasks', async (req, res) => {
 })
 
 router.get('/getAllCreatedTasks', async (req, res) => {
-    const {email} = req.body;
+    const {email} = req.query;
 
     try {
         var user = await User.findOne({ 'email': email });
