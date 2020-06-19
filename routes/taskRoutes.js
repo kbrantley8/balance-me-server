@@ -210,7 +210,7 @@ router.get('/getCreatedUser', async (req, res) => {
 
 //of type
 // { completion_time: 123, estimated_completion_time: 123, status: 0 }
-router.post('/updateHistory', async (req, res) => {
+router.post('/updateTaskHistory', async (req, res) => {
 
     const { task_id, history_log } = req.body;
 
