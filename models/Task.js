@@ -43,6 +43,11 @@ const taskSchema = new mongoose.Schema({
         required: true,
         default: 3
     },
+    completion_time: {
+        type: Number,
+        required: true,
+        default: null
+    },
     image_path: {
         type: String,
         required: true,
