@@ -3,7 +3,10 @@ const mongoose = require('mongoose')
 const history_schema = {
     completion_time: "",
     estimated_completion_time: "",
-    status: ""
+    status: "",
+    completed: "",
+    points_awarded: "",
+    start_time: ""
 }
 
 const taskSchema = new mongoose.Schema({
@@ -67,6 +70,16 @@ const taskSchema = new mongoose.Schema({
             days: "none",
             weeks: "none"
         }
+    },
+    completed: {
+        type: Boolean,
+        required: true,
+        default: 0
+    },
+    active: {
+        type: Boolean,
+        required: true,
+        default: 0
     }
 }, {collection: 'tasks'})
 
