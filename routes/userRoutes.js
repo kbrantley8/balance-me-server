@@ -156,30 +156,37 @@ router.post('/updatePoints', async (req, res) => {
 
     try {
         // const user = new User.findOne({ '_id': userId })
-        var user = await User.findOne({ 'email': email }, async function(err, doc) {
+        // var user = await User.findOne({ 'email': email }, async function(err, doc) {
+        //     if (!doc) {
+        //         return res.status(404).send({error: "Could not find the specified user. Please try again."})
+        //     }
+
+        //     try {
+        //         doc._doc = {...doc._doc, points: points}
+        //         doc.markModified('points')
+        //         await doc.save()
+
+        //         res.status(200).send({   
+        //             first_name: doc.first_name,
+        //             last_name: doc.last_name,
+        //             account_type: doc.account_type,
+        //             password: doc.password,
+        //             email: doc.email,
+        //             points: doc.points,
+        //             user_id: doc._id})
+        //     } catch (err) {
+        //         return res.status(422).send({error: err})
+        //     }
+        // });
+        var user = await User.findOneAndUpdate({ 'email': email }, { "points": points }, async function(err, doc) {
             if (!doc) {
                 return res.status(404).send({error: "Could not find the specified user. Please try again."})
             }
+        }).then(user => {
+            return user.data;
+        })
 
-            try {
-                doc._doc = {...doc._doc, points: points}
-                doc.markModified('points')
-                await doc.save()
-
-                res.status(200).send({   
-                    first_name: doc.first_name,
-                    last_name: doc.last_name,
-                    account_type: doc.account_type,
-                    password: doc.password,
-                    email: doc.email,
-                    points: doc.points,
-                    user_id: doc._id})
-            } catch (err) {
-                return res.status(422).send({error: err})
-            }
-        });
-
-        return user;
+        res.status(200).send(user)
 
     } catch (e) {
         return res.send({error: e.message})
