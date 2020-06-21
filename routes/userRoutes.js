@@ -150,4 +150,38 @@ router.delete('/deleteUser', async (req, res) => {
     }
 })
 
+router.post('/updatePoints', async (req, res) => {
+    // const {userId} = req.body;
+    const { email, points } = req.body;
+
+    try {
+        // const user = new User.findOne({ '_id': userId })
+        var user = await User.findOne({ 'email': email }, async function(err, doc) {
+            if (!doc) {
+                return res.status(404).send({error: "Could not find the specified user. Please try again."})
+            }
+
+            try {
+                doc._doc = {...doc._doc, points: points}
+                doc.markModified('email')
+                await doc.save()
+
+                res.status(200).send({   
+                    first_name: doc.first_name,
+                    last_name: doc.last_name,
+                    account_type: doc.account_type,
+                    password: doc.password,
+                    email: doc.email,
+                    points: doc.points,
+                    user_id: doc._id})
+            } catch (err) {
+                return res.status(422).send({error: err})
+            }
+        });
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
 module.exports = router;
