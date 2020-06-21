@@ -163,7 +163,7 @@ router.post('/updatePoints', async (req, res) => {
 
             try {
                 doc._doc = {...doc._doc, points: points}
-                doc.markModified('email')
+                doc.markModified('password')
                 await doc.save()
 
                 res.status(200).send({   
