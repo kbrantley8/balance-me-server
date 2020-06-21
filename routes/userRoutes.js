@@ -179,6 +179,8 @@ router.post('/updatePoints', async (req, res) => {
             }
         });
 
+        return user;
+
     } catch (e) {
         return res.send({error: e.message})
     }
