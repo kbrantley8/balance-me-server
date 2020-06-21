@@ -160,7 +160,7 @@ router.post('/updatePoints', async (req, res) => {
                 return res.status(404).send({error: "Could not find the specified user. Please try again."})
             }
         }).then(user => {
-            return user.data;
+            return user;
         })
 
         res.status(200).send(user)
