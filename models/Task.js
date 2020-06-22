@@ -1,5 +1,14 @@
 const mongoose = require('mongoose')
 
+const history_schema = {
+    completion_time: "",
+    estimated_completion_time: "",
+    status: "",
+    completed: "",
+    points_awarded: "",
+    start_time: ""
+}
+
 const taskSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -36,7 +45,7 @@ const taskSchema = new mongoose.Schema({
     },
     completion_time: {
         type: Number,
-        requried: true,
+        required: false,
         default: null
     },
     image_path: {
@@ -51,6 +60,31 @@ const taskSchema = new mongoose.Schema({
     created_user_id: {
         type: String,
         required: true
+    },
+    history: {
+        type: Array,
+        of: history_schema,
+        requred: true,
+        default: []
+    },
+    repeat: {
+        type: Map,
+        of: String,
+        required: true,
+        default: {
+            days: "none",
+            weeks: "none"
+        }
+    },
+    completed: {
+        type: Boolean,
+        required: true,
+        default: 0
+    },
+    active: {
+        type: Boolean,
+        required: true,
+        default: 0
     }
 }, {collection: 'tasks'})
 

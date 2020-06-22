@@ -28,7 +28,7 @@ router.post('/createUser', async (req, res) => {
 
 router.get('/getUser', async (req, res) => {
     // const {userId} = req.body;
-    const {email} = req.body;
+    const {email} = req.query;
 
     try {
         // const user = new User.findOne({ '_id': userId })
@@ -94,7 +94,7 @@ router.post('/updateEmail', async (req, res) => {
 })
 
 router.get('/getAllAssignedTasks', async (req, res) => {
-    const {email} = req.body;
+    const {email} = req.query;
 
     try {
         var user = await User.findOne({ 'email': email });
@@ -113,7 +113,7 @@ router.get('/getAllAssignedTasks', async (req, res) => {
 })
 
 router.get('/getAllCreatedTasks', async (req, res) => {
-    const {email} = req.body;
+    const {email} = req.query;
 
     try {
         var user = await User.findOne({ 'email': email });
@@ -125,6 +125,45 @@ router.get('/getAllCreatedTasks', async (req, res) => {
         var tasks = await Task.find({ 'created_user_id': user._id })
 
         res.status(200).send(tasks)
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
+router.delete('/deleteUser', async (req, res) => {
+
+    const { email } = req.body;
+
+    try {
+        var user = await User.deleteOne({ 'email': email }, async function (err, doc) { 
+            if (!doc.deletedCount) {
+                return res.status(404).send({error: "Could not find the specified user. Please try again."})
+            } else {
+                return res.status(200).send(true)
+            }
+
+        })
+
+    } catch (e) {
+        res.send({error: e.message})
+    }
+})
+
+router.post('/updatePoints', async (req, res) => {
+    // const {userId} = req.body;
+    const { email, points } = req.body;
+
+    try {
+        var user = await User.findOneAndUpdate({ 'email': email }, { "points": points }, async function(err, doc) {
+            if (!doc) {
+                return res.status(404).send({error: "Could not find the specified user. Please try again."})
+            }
+        }).then(user => {
+            return user;
+        })
+
+        res.status(200).send(user)
 
     } catch (e) {
         return res.send({error: e.message})
