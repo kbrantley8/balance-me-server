@@ -190,4 +190,31 @@ router.post('/updateFirstName', async (req, res) => {
     }
 })
 
+router.get('/getDailyTasks', async (req, res) => {
+    const {email} = req.query;
+
+    var start = new Date();
+    start.setHours(0,0,0,0);
+    start = (start.getTime() / 1000);
+
+    var end = new Date();
+    end.setHours(23,59,59,0);
+    end = (end.getTime() / 1000);
+
+    try {
+        var user = await User.findOne({ 'email': email });
+
+        if (!user) {
+            return res.status(404).send({error: "Could not find the specified user. Please try again."})
+        }
+
+        var tasks = await Task.find({ 'assigned_user_id': user._id, 'start_time': { $gt: start, $lt: end } })
+
+        res.status(200).send(tasks)
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
 module.exports = router;
