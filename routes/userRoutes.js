@@ -193,9 +193,10 @@ router.post('/updateFirstName', async (req, res) => {
 router.get('/getDailyTasks', async (req, res) => {
     const {email} = req.query;
 
-    var start = new Date();
-    start.setHours(0,0,0,0);
-    start = (start.getTime() / 1000);
+    // var start = new Date();
+    // start.setHours(0,0,0,0);
+    // start = (start.getTime() / 1000);
+    var start = 1592971200;
 
     // var end = new Date();
     // end.setHours(23,59,59,0);
