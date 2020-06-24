@@ -197,9 +197,10 @@ router.get('/getDailyTasks', async (req, res) => {
     start.setHours(0,0,0,0);
     start = (start.getTime() / 1000);
 
-    var end = new Date();
-    end.setHours(23,59,59,0);
-    end = (end.getTime() / 1000);
+    // var end = new Date();
+    // end.setHours(23,59,59,0);
+    // end = (end.getTime() / 1000);
+    var end = 1593057599;
 
     try {
         var user = await User.findOne({ 'email': email });
