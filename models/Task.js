@@ -32,11 +32,13 @@ const taskSchema = new mongoose.Schema({
     },
     start_time: {
         type: Number,
-        required: true
+        required: true,
+        default: null
     },
     estimated_completion_time: {
         type: Number,
-        required: true
+        required: true,
+        default: null
     },
     status: {
         type: Number,
