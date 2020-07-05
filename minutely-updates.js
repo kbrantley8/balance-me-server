@@ -29,7 +29,7 @@ setInterval(async function() {
               } 
         }
     }
-}, 5 * 1000);
+}, 60 * 1000);
 
 getTodaysTasks = async () => {
     var start = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
