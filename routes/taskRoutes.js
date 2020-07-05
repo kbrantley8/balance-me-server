@@ -342,10 +342,12 @@ router.get('/getTodaysTasks', async (req, res) => {
         var start = new Date();
         start.setHours(0,0,0,0);
         start = (start.getTime() / 1000);
+        start += 14400; // puts it in EST
     
         var end = new Date();
         end.setHours(23,59,59,0);
         end = (end.getTime() / 1000);
+        end += 14400; // puts it in EST
 
         res.status(200).send({'start': start, 'end': end})
 
