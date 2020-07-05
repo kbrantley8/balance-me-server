@@ -6,6 +6,7 @@ setInterval(async function() {
     console.log('update here')
     var tasks = await getTodaysTasks();
     var currTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+    currTime = new Date(currTime)
     currTime = currTime.getTime() / 1000;
     currTime = currTime + timeDiff; //change to EST
     for (var task in tasks) {
