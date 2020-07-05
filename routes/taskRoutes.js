@@ -345,7 +345,7 @@ router.get('/getTodaysTasks', async (req, res) => {
         start.setHours(0,0,0,0);
         start1.setHours(0, 0, 0, 0);
         var start_tim = (start.getTime() / 1000)
-        res.status(200).send({"start": start_tim, "start1": start1})
+        res.status(200).send({"start": start_tim, "start1": start1.getTime()})
 
     } catch (e) {
         return res.send({error: e.message})
