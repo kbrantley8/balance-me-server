@@ -336,10 +336,14 @@ router.get('/getTodaysTasks', async (req, res) => {
     const {start_time, end_time } = req.query;
 
     try {
-        var tasks = await Task.find({ 'start_time': { $gt: start_time, $lt: end_time } })
+        // var tasks = await Task.find({ 'start_time': { $gt: start_time, $lt: end_time } })
 
-        res.status(200).send(tasks)
-
+        // res.status(200).send(tasks)
+        var currTime = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
+        currTime = new Date(currTime)
+        currTime = currTime.getTime() / 1000;
+        currTime = currTime + timeDiff;
+        res.status(200).send({"s": currTime})
     } catch (e) {
         return res.send({error: e.message})
     }
