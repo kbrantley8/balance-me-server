@@ -341,7 +341,7 @@ router.get('/getTodaysTasks', async (req, res) => {
         // res.status(200).send(tasks)
         var start = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
         start = new Date(start);
-        res.status(200).send({"start": start})
+        res.status(200).send({"start": start.getTime() / 1000})
 
     } catch (e) {
         return res.send({error: e.message})
