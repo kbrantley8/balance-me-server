@@ -1,5 +1,6 @@
 require('./models/User')
 require('./models/Task')
+require('./minutely-updates')
 
 const express = require('express')
 const mongoose = require('mongoose')

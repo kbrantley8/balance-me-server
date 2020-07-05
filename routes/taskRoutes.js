@@ -331,4 +331,18 @@ router.delete('/deleteTask', async (req, res) => {
     }
 })
 
+router.get('/getTodaysTasks', async (req, res) => {
+
+    const {start_time, end_time } = req.query;
+
+    try {
+        var tasks = await Task.find({ 'start_time': { $gt: start_time, $lt: end_time } })
+
+        res.status(200).send(tasks)
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
 module.exports = router;
