@@ -36,7 +36,8 @@ router.post('/createTask', async (req, res) => {
             history: task.history,
             repeat: task.repeat,
             completed: task.completed,
-            active: task.active
+            active: task.active,
+            steps: task.steps
         })
 
     } catch (e) {
@@ -72,7 +73,8 @@ router.get('/getTask', async (req, res) => {
             history: task.history,
             repeat: task.repeat,
             completed: task.completed,
-            active: task.active
+            active: task.active,
+            steps: task.steps
         })
 
     } catch (e) {
@@ -108,7 +110,8 @@ router.post('/updateTask', async (req, res) => {
             history: task.history,
             repeat: task.repeat,
             completed: task.completed,
-            active: task.active
+            active: task.active,
+            steps: task.steps
         })
     } catch (e) {
         res.send({error: e.message})
@@ -149,7 +152,8 @@ router.post('/assignTask', async (req, res) => {
             history: task.history,
             repeat: task.repeat,
             completed: task.completed,
-            active: task.active
+            active: task.active,
+            steps: task.steps
         })
     } catch (e) {
         res.send({error: e.message})
@@ -256,7 +260,8 @@ router.post('/updateTaskHistory', async (req, res) => {
                 history: doc.history,
                 repeat: doc.repeat,
                 completed: doc.completed,
-                active: doc.active
+                active: doc.active,
+                steps: doc.steps
             })
 
         })
@@ -302,7 +307,8 @@ router.post('/updateRepeat', async (req, res) => {
                 history: doc.history,
                 repeat: doc.repeat,
                 completed: doc.completed,
-                active: doc.active
+                active: doc.active,
+                steps: doc.steps
             })
 
         })

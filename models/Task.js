@@ -87,6 +87,11 @@ const taskSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: 0
+    },
+    steps: {
+        type: Array,
+        required: false,
+        default: []
     }
 }, {collection: 'tasks'})
 
