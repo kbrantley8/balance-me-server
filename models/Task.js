@@ -71,11 +71,11 @@ const taskSchema = new mongoose.Schema({
     },
     repeat: {
         type: Map,
-        of: String,
+        of: Array,
         required: true,
         default: {
             days: [],
-            frequency: "none"
+            frequency: []
         }
     },
     completed: {
