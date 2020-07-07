@@ -272,12 +272,12 @@ router.post('/updateTaskHistory', async (req, res) => {
 })
 
 // of type:
-// { days: "none", weeks: "none"} or { days: "M, TR", weeks: "Single" }
+// { days: "none", frequency: "none"} or { days: "M, TR", frequency: "Single" }
 router.post('/updateRepeat', async (req, res) => {
 
     const { task_id, repeat } = req.body;
 
-    if (!repeat.days || !repeat.weeks) {
+    if (!repeat.days || !repeat.frequency) {
         return res.status(400).send({error: "The repeat statement is incorrect. Please try again."})
     }
 

@@ -75,7 +75,7 @@ const taskSchema = new mongoose.Schema({
         required: true,
         default: {
             days: "none",
-            weeks: "none"
+            frequency: "none"
         }
     },
     completed: {
