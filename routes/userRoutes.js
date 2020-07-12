@@ -190,6 +190,26 @@ router.post('/updateFirstName', async (req, res) => {
     }
 })
 
+router.post('/updateLastName', async (req, res) => {
+    // const {userId} = req.body;
+    const { email, last_name } = req.body;
+
+    try {
+        var user = await User.findOneAndUpdate({ 'email': email }, { "last_name": last_name }, async function(err, doc) {
+            if (!doc) {
+                return res.status(404).send({error: "Could not find the specified user. Please try again."})
+            }
+        }).then(user => {
+            return user;
+        })
+
+        res.status(200).send(user)
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
 router.get('/getDailyTasks', async (req, res) => {
     const {email, start_time, end_time } = req.query;
 
