@@ -229,4 +229,25 @@ router.get('/getDailyTasks', async (req, res) => {
     }
 })
 
+router.get('/loginUser', async (req, res) => {
+    const {email, password } = req.query;
+
+    try {
+        var user = await User.findOne({ 'email': email });
+
+        if (!user) {
+            return res.status(404).send({error: "Could not find the specified user. Please try again."})
+        }
+
+        if (password != user.password) {
+            return res.status(401).send({error: "The password entered is not correct. Please try again."})
+        }
+
+        res.status(200).send(user)
+
+    } catch (e) {
+        return res.send({error: e.message})
+    }
+})
+
 module.exports = router;
